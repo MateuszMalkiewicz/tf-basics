@@ -10,10 +10,7 @@ module "vpc" {
 
 module "ec2" {
   source = "./modules/ec2"
-  # depends_on = [
-  #   module.vpc
-  # ]
-
+  
   ami_id    = "ami-0a1ee2fb28fe05df3"
   sg_id     = module.vpc.sg_id
   subnet_id = module.vpc.subnet_id

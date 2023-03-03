@@ -1,9 +1,3 @@
-# variable "" {
-# type        = any
-# default     = ""
-# description = ""
-# }
-
 variable "environment" {
   type        = string
   default     = "skillup"
