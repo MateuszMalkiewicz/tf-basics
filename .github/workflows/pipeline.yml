@@ -8,7 +8,7 @@ on:
       - 'basic-infra/**'
       
 jobs:
-  terraform-apply:
+  terraform-plan:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
@@ -24,6 +24,13 @@ jobs:
         with:
           secret: ${{ github.TOKEN }}
           approvers: emkej0
+        
+  terraform-apply:
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform
+    steps:
+      - uses: actions/checkout@v3
       - name: run terraform apply
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
