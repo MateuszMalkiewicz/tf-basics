@@ -22,6 +22,7 @@ jobs:
       - name: terraform approval
         uses: trstringer/manual-approval@v1
         with:
+          secret: ${{ github.TOKEN }}
           approvers: emkej0
       - name: run terraform apply
         env:
