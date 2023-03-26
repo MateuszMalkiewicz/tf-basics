@@ -7,6 +7,10 @@ on:
     paths:
       - 'basic-infra/**'
       
+defaults:
+  run:
+    working-directory: ./basic-infra
+      
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: terraform -chdir="./basic-infra" init && terraform -chdir="./basic-infra" plan
+        run: terraform init && terraform plan
       - name: terraform approval
         uses: trstringer/manual-approval@v1
         with:
