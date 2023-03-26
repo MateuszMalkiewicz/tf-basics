@@ -12,7 +12,12 @@ defaults:
     working-directory: ./basic-infra
       
 jobs:
-  terraform-plan:
+  - uses: Actions-R-Us/default-env@v1
+    env:
+      GITHUB_ACTOR: 'github'
+      GITHUB_REF: 'master'
+      
+  - terraform-plan:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
@@ -30,7 +35,7 @@ jobs:
           approvers: emkej0
           issue-title: "Terraform plan and approve"
         
-  terraform-apply:
+  - terraform-apply:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
@@ -43,7 +48,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         run: terraform -chdir="./basic-infra" init && terraform -chdir="./basic-infra" apply -auto-approve
 
-  terraform-destroy:
+  - terraform-destroy:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
