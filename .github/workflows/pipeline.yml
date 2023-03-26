@@ -43,10 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
-    needs: [terraform-apply, terraform-plan]
+    needs: terraform-apply
     if: |
       always() &&
-      (!contains(needs.*.result, 'failure') || !contains(needs.*.result, 'cancelled') || !contains(needs.*.result, 'skipped'))
+      ( !contains(needs.*.result, 'failure') ||
+      !contains(needs.*.result, 'cancelled') ||
+      !contains(needs.*.result, 'skipped') )
     steps:
       - name: terraform destroy
         uses: trstringer/manual-approval@v1
@@ -59,4 +61,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: terraform -chdir="./basic-infra" destroy -auto-approve
+        run: terraform -chdir="./basic-infra" init && terraform -chdir="./basic-infra" destroy -auto-approve
