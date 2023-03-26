@@ -22,7 +22,7 @@ jobs:
       - name: terraform approval
         uses: trstringer/manual-approval@v1
         with:
-          users: emkej0
+          approvers: emkej0
       - name: run terraform apply
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
