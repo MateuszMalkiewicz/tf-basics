@@ -19,7 +19,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         run: cd basic-infra && terraform init && terraform plan
-        shell: sh
       - name: terraform approval
         uses: trstringer/manual-approval@v1
         with:
@@ -29,4 +28,3 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         run: pwd && terraform apply -auto-approve
-        shell: sh
