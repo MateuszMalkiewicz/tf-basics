@@ -22,7 +22,7 @@ jobs:
       - name: terraform approval
         uses: trstringer/manual-approval@v1
         with:
-          secret: ${{ secrets.gh_pat }}
+          secret: ${{ secrets.GH_PAT }}
           approvers: emkej0
         
   terraform-apply:
