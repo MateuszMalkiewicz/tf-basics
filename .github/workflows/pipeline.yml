@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
-    needs: terraform-apply
+    needs: [terraform-apply, terraform-plan]
     if: |
       always() &&
       !contains(needs.*.result, 'failure') &&
