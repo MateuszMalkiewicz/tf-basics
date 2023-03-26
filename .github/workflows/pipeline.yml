@@ -43,7 +43,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
-    if: ${{ failure() }}
+    needs: terraform-apply
+    if: |
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled')
     steps:
       - name: terraform destroy
         uses: trstringer/manual-approval@v1
