@@ -37,14 +37,15 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: terraform init && terraform apply -auto-approve
+        run: terraform -chdir="./basic-infra" init && terraform -chdir="./basic-infra" apply -auto-approve
 
   terraform-destroy:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
     steps:
-      - name: terraform approval
+      - name: terraform destroy
+        if: ${{ failure() }}
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.GH_PAT }}
@@ -55,4 +56,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: terraform destroy -auto-approve
+        run: terraform -chdir="./basic-infra" destroy -auto-approve
