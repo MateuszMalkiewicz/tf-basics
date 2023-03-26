@@ -43,9 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform
+    if: ${{ failure() }}
     steps:
       - name: terraform destroy
-        if: ${{ failure() }}
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.GH_PAT }}
